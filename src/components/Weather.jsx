@@ -35,6 +35,15 @@ const Weather = ({city}) => {
         }
     }, [city]);
 
+    useEffect(()=>{
+    const now = Date.now();
+        if (city === weather.city && (now-timeOfClickGetWeather)>weather_cache_time){
+            const internal = setInterval(()=>{
+                //TODO
+            },weather_cache_time)}
+        },[]);
+
+
     return (
         <div className={'infoWeath'}>
             {!message &&
