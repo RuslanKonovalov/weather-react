@@ -6,6 +6,7 @@ import {weather_cache_time} from "../utils/constants.js";
 const Weather = ({city}) => {
     const [weather, setWeather] = useState({});
     const [message, setMessage] = useState('Enter city name');
+    const [time, setTimeStamp] = useState(0);
 
 
     const getWeather = async () => {
@@ -22,6 +23,7 @@ const Weather = ({city}) => {
                 pressure: data.main.pressure,
                 sunset: data.sys.sunset * 1000,
             })
+            setTimeStamp(Date.now());
             setMessage('');
         } catch (e) {
             setMessage(e.message);
@@ -29,19 +31,20 @@ const Weather = ({city}) => {
     }
 
     useEffect(() => {
-        const now = Date.now();
-        if ( city ) {
+        if (city) {
             getWeather();
         }
     }, [city]);
 
-    useEffect(()=>{
-    const now = Date.now();
-        if (city === weather.city && (now-timeOfClickGetWeather)>weather_cache_time){
-            const internal = setInterval(()=>{
-                //TODO
-            },weather_cache_time)}
-        },[]);
+    useEffect(() => {
+        const now = Date.now();
+        const internal = setInterval(() => {
+            //TODO
+            if (city === weather.city && (now - setTimeStamp) < weather_cache_time)
+                getWeather();
+        }, weather_cache_time);
+        return () => clearInterval(internal);
+    }, [])
 
 
     return (
