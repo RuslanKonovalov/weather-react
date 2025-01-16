@@ -1,9 +1,12 @@
-const Form = ({setCity}) => {
+const Form = ({setCity,setTime}) => {
 
     const handleClickGetWeather = e => {
         e.preventDefault();
         const city = e.target.city.value.trim();
-        setCity(new String(city));
+        setCity(city);
+        const time = Date.now();
+        setTime(time);
+        // setCity(new String(city));
         e.target.city.value = '';
     }
 

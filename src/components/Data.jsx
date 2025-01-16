@@ -4,13 +4,12 @@ import {useState} from "react";
 
 const Data = () => {
     const [city, setCity]= useState('');
-    // const [time, setTime] = useState('');
+    const [time, setTime] = useState('');
 
-    let setTime;
     return (
         <div className={'col-sm-7 form'}>
-            <Form setCity={setCity}/>
-            <Weather city={city}/>
+            <Form setCity={setCity} setTime={setTime}/>
+            <Weather city={city} time={time}/>
         </div>
     );
 };
